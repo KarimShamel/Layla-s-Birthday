@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layla's Sweet Celebration!</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --pink:#ff9fcf;
+    --pink-light:#ffe6f2;
+    --pink-soft:#ffd3e8;
+    --gold:#f4c76b;
+    --white:#ffffff;
+    --text:#5c4b59;
+    --shadow:0 15px 40px rgba(255, 159, 207, .25);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:
+        radial-gradient(circle at top left,#fff4fa 0%,#ffeaf4 30%,#fff7fb 100%);
+    color:var(--text);
+    overflow-x:hidden;
+    position:relative;
+}
+
+/* Floating Background Canvas */
+#bgCanvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+    pointer-events:none;
+}
+
+/* Decorative Blobs */
+.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(80px);
+    opacity:.4;
+}
+
+.blob1{
+    width:350px;
+    height:350px;
+    background:#ffd8ec;
+    top:-120px;
+    left:-120px;
+}
+
+.blob2{
+    width:300px;
+    height:300px;
+    background:#ffe7a3;
+    right:-100px;
+    top:180px;
+}
+
+.container{
+    width:min(1200px,92%);
+    margin:auto;
+}
+
+/* Hero */
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 20px;
+}
+
+.hero-content{
+    width:100%;
+}
+
+.image-frame{
+    width:280px;
+    height:280px;
+    margin:auto;
+    border-radius:40px;
+    background:
+        linear-gradient(135deg,#fff,#ffe5f2);
+    padding:12px;
+    position:relative;
+    animation:float 4s ease-in-out infinite;
+    box-shadow:
+        0 0 0 6px rgba(255,255,255,.8),
+        0 0 35px rgba(255,160,210,.7);
+}
+
+.image-frame::before{
+    content:"🎀";
+    position:absolute;
+    top:-25px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:3rem;
+}
+
+.image-placeholder{
+    width:100%;
+    height:100%;
+    border-radius:30px;
+    background:
+        linear-gradient(135deg,#ffd6ea,#fff7fb);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    font-family:'Fredoka',sans-serif;
+    color:#c05b95;
+    font-size:1.1rem;
+}
+
+.hero h1{
+    font-family:'Fredoka',sans-serif;
+    font-size:clamp(2.8rem,6vw,5rem);
+    margin-top:35px;
+    color:#d55b9d;
+    text-shadow:0 4px 20px rgba(255,159,207,.35);
+}
+
+.subtitle{
+    font-size:1.15rem;
+    margin-top:12px;
+    color:#876574;
+}
+
+/* Countdown */
+.countdown{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-top:40px;
+}
+
+.time-box{
+    min-width:110px;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(10px);
+    border:2px solid rgba(255,180,220,.4);
+    border-radius:25px;
+    padding:20px;
+    box-shadow:var(--shadow);
+}
+
+.time-box span{
+    display:block;
+}
+
+.time-value{
+    font-family:'Fredoka',sans-serif;
+    font-size:2.1rem;
+    color:#d35a99;
+}
+
+.time-label{
+    margin-top:6px;
+    font-size:.9rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+/* Sections */
+section{
+    padding:90px 0;
+}
+
+.section-title{
+    text-align:center;
+    font-family:'Fredoka',sans-serif;
+    font-size:2.8rem;
+    color:#d45b9c;
+    margin-bottom:40px;
+}
+
+/* Invitation Letter */
+.envelope-wrapper{
+    max-width:850px;
+    margin:auto;
+}
+
+.envelope{
+    background:linear-gradient(145deg,#fff,#fff7fb);
+    border-radius:35px;
+    padding:50px;
+    position:relative;
+    box-shadow:var(--shadow);
+    border:2px solid rgba(255,195,223,.5);
+    overflow:hidden;
+}
+
+.envelope::before{
+    content:"💌";
+    position:absolute;
+    top:18px;
+    right:25px;
+    font-size:2rem;
+}
+
+.envelope::after{
+    content:"🎀";
+    position:absolute;
+    left:25px;
+    bottom:18px;
+    font-size:2rem;
+}
+
+.letter{
+    line-height:1.95;
+    font-size:1.08rem;
+    text-align:center;
+}
+
+/* Event Details */
+.details-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.detail-card{
+    background:white;
+    border-radius:30px;
+    padding:35px;
+    text-align:center;
+    box-shadow:var(--shadow);
+    transition:.35s ease;
+}
+
+.detail-card:hover{
+    transform:translateY(-8px);
+}
+
+.detail-icon{
+    font-size:2.8rem;
+    margin-bottom:15px;
+}
+
+.detail-card h3{
+    font-family:'Fredoka',sans-serif;
+    color:#d45b9c;
+    margin-bottom:10px;
+}
+
+.map-container{
+    text-align:center;
+    margin-top:45px;
+}
+
+.map-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:16px 34px;
+    text-decoration:none;
+    border-radius:999px;
+    background:linear-gradient(135deg,#ff9fcf,#ff7fbf);
+    color:white;
+    font-weight:600;
+    box-shadow:0 10px 25px rgba(255,127,191,.35);
+    transition:.35s ease;
+}
+
+.map-btn:hover{
+    transform:translateY(-4px) scale(1.05);
+    background:linear-gradient(135deg,#ff7fbf,#ff9fcf);
+}
+
+/* Footer */
+.footer{
+    text-align:center;
+    padding:50px 20px 70px;
+}
+
+.footer h3{
+    font-family:'Fredoka',sans-serif;
+    color:#d45b9c;
+    font-size:2rem;
+    margin-bottom:10px;
+}
+
+.footer p{
+    max-width:700px;
+    margin:auto;
+}
+
+/* Animations */
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-15px);
+    }
+}
+
+.fade-up{
+    opacity:0;
+    transform:translateY(40px);
+    transition:all .8s ease;
+}
+
+.fade-up.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+@media(max-width:768px){
+
+    .hero{
+        padding-top:120px;
+    }
+
+    .image-frame{
+        width:220px;
+        height:220px;
+    }
+
+    .envelope{
+        padding:35px 25px;
+    }
+
+    .time-box{
+        min-width:90px;
+    }
+
+    .time-value{
+        font-size:1.7rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<canvas id="bgCanvas"></canvas>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content fade-up">
+
+        <div class="image-frame">
+            <div class="image-placeholder">
+                <div style="font-size:3rem;">🎀</div>
+                <strong>Layla's Photo</strong>
+                <small>Replace with your image</small>
+            </div>
+        </div>
+
+        <h1>Layla's Sweet Celebration!</h1>
+
+        <p class="subtitle">
+            Join us for a magical Premium Hello Kitty Birthday Party
+        </p>
+
+        <div class="countdown">
+            <div class="time-box">
+                <span class="time-value" id="days">00</span>
+                <span class="time-label">Days</span>
+            </div>
+
+            <div class="time-box">
+                <span class="time-value" id="hours">00</span>
+                <span class="time-label">Hours</span>
+            </div>
+
+            <div class="time-box">
+                <span class="time-value" id="minutes">00</span>
+                <span class="time-label">Minutes</span>
+            </div>
+
+            <div class="time-box">
+                <span class="time-value" id="seconds">00</span>
+                <span class="time-label">Seconds</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- INVITATION -->
+<section>
+    <div class="container">
+        <h2 class="section-title fade-up">A Special Invitation</h2>
+
+        <div class="envelope-wrapper">
+            <div class="envelope fade-up">
+                <div class="letter">
+
+                    Dear Friends,
+
+                    <br><br>
+
+                    With hearts full of joy and excitement, we warmly invite you
+                    to celebrate a truly magical day with our sweet Layla
+                    Mohamed!
+
+                    <br><br>
+
+                    Step into a dreamy world of pastel pinks, sparkling smiles,
+                    adorable Hello Kitty decorations, delicious treats, fun
+                    surprises, and unforgettable memories. This special
+                    celebration has been planned with love, and it would not be
+                    complete without the wonderful friends who make Layla's life
+                    so bright and meaningful.
+
+                    <br><br>
+
+                    Come dressed in your happiest smiles and get ready for a day
+                    filled with laughter, friendship, games, photos, and magical
+                    Hello Kitty moments. Your presence will make this celebration
+                    even more special and create memories that Layla will cherish
+                    forever.
+
+                    <br><br>
+
+                    We cannot wait to celebrate together and share this beautiful
+                    occasion with you!
+
+                    <br><br>
+
+                    🎀 With Love & Excitement 🎀
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DETAILS -->
+<section>
+    <div class="container">
+
+        <h2 class="section-title fade-up">Party Details</h2>
+
+        <div class="details-grid">
+
+            <div class="detail-card fade-up">
+                <div class="detail-icon">📅</div>
+                <h3>Date</h3>
+                <p>Sunday, June 21, 2026</p>
+            </div>
+
+            <div class="detail-card fade-up">
+                <div class="detail-icon">⏰</div>
+                <h3>Time</h3>
+                <p>4:00 PM</p>
+            </div>
+
+            <div class="detail-card fade-up">
+                <div class="detail-icon">📍</div>
+                <h3>Location</h3>
+                <p>Madinaty, Villa 42/3</p>
+            </div>
+
+        </div>
+
+        <div class="map-container fade-up">
+            <a
+                href="https://maps.google.com"
+                target="_blank"
+                class="map-btn">
+                🎀 View on Google Maps
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+<section class="footer">
+    <h3>See You There! 🎀</h3>
+    <p>
+        A magical Hello Kitty celebration filled with love, friendship,
+        laughter, and unforgettable memories awaits.
+    </p>
+</section>
+
+<script>
+/* Countdown */
+const targetDate = new Date("June 21, 2026 16:00:00").getTime();
+
+function updateCountdown(){
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if(distance <= 0){
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24))
+        / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60))
+        / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60))
+        / 1000);
+
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours;
+    document.getElementById("minutes").innerText = minutes;
+    document.getElementById("seconds").innerText = seconds;
+}
+
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+/* Scroll Animation */
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add("show");
+        }
+    });
+},{threshold:0.15});
+
+document.querySelectorAll(".fade-up").forEach(el=>{
+    observer.observe(el);
+});
+
+/* Floating Hearts & Bows Canvas */
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize",resizeCanvas);
+
+const particles = [];
+
+const emojis = ["🎀","💖","✨","💗"];
+
+for(let i=0;i<40;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        size:18 + Math.random()*18,
+        speed:0.3 + Math.random()*1,
+        emoji:emojis[Math.floor(Math.random()*emojis.length)],
+        drift:(Math.random()-0.5)*0.5
+    });
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+        ctx.font = p.size + "px serif";
+        ctx.fillText(p.emoji,p.x,p.y);
+
+        p.y -= p.speed;
+        p.x += p.drift;
+
+        if(p.y < -50){
+            p.y = canvas.height + 50;
+            p.x = Math.random()*canvas.width;
+        }
+
+        if(p.x < -50) p.x = canvas.width + 50;
+        if(p.x > canvas.width + 50) p.x = -50;
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
